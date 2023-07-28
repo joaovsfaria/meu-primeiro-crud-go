@@ -2,12 +2,13 @@ package controller
 
 import (
 	"net/http"
-	
+
 	"github.com/gin-gonic/gin"
+	"github.com/meu-primeiro-crud-go/src/configuration/logger"
+	"github.com/meu-primeiro-crud-go/src/configuration/validation"
 	"github.com/meu-primeiro-crud-go/src/controller/model/request"
 	"github.com/meu-primeiro-crud-go/src/model"
-	"github.com/meu-primeiro-crud-go/src/configuration/validation"
-	"github.com/meu-primeiro-crud-go/src/configuration/logger"
+	"github.com/meu-primeiro-crud-go/src/model/service"
 
 	"go.uber.org/zap"
 )
@@ -17,9 +18,9 @@ var (
 )
 
 func CreateUser(c *gin.Context) {
-	logger.Info("Init CreateUser Controller", 
-	zap.String("journey", "createUser"),
-)
+	logger.Info("Init CreateUser Controller",
+		zap.String("journey", "createUser"),
+	)
 	var userRequest request.UserRequest
 
 	if err := c.ShouldBindJSON(&userRequest); err != nil {
@@ -27,8 +28,8 @@ func CreateUser(c *gin.Context) {
 			zap.String("journey", "createUser"))
 		errRest := validation.ValidateUserError(err)
 
-			c.JSON(errRest.Code, errRest)
-			return
+		c.JSON(errRest.Code, errRest)
+		return
 	}
 
 	domain := model.NewUserDomain(
@@ -38,15 +39,15 @@ func CreateUser(c *gin.Context) {
 		userRequest.Age,
 	)
 
-	if err := domain.CreateUser(); err != nil {
+	service := service.NewUserDomainService()
+	if err := service.CreateUser(domain); err != nil {
 		c.JSON(err.Code, err)
-		return	
+		return
 	}
 
-	logger.Info("User created succesfully", 
-	zap.String("journey", "createUser"))
+	logger.Info("User created succesfully",
+		zap.String("journey", "createUser"))
 
-	c.String(http.StatusOK, "")	
+	c.String(http.StatusOK, "")
 
 }
-
