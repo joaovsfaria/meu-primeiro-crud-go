@@ -21,3 +21,4 @@ func (ud *userDomainService) CreateUser(
 
 	return nil
 }
+
