@@ -5,7 +5,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/meu-primeiro-crud-go/src/configuration/database/mongodb"
 	"github.com/meu-primeiro-crud-go/src/configuration/logger"
 	"github.com/meu-primeiro-crud-go/src/controller"
 	"github.com/meu-primeiro-crud-go/src/controller/routes"
@@ -18,8 +17,6 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-
-	
 
 	//init dependences
 
