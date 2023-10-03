@@ -49,7 +49,7 @@ func (uc *userControllerInterface) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	logger.Info("User created succesfully",
+	logger.Info("User updated succesfully",
 		zap.String("userID", userId),
 		zap.String("journey", "updateUser"))
 
