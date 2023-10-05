@@ -23,12 +23,11 @@ func NewUserDomain(
 }
 
 func NewUserLoginDomain(
-	email, password,
+	email, password string,
 ) UserDomainInterface {
 	return &userDomain{
 		email:    email,
 		password: password,
-		
 	}
 }
 

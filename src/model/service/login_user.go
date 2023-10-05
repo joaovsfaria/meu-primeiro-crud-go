@@ -13,7 +13,7 @@ func (ud *userDomainService) LoginUserServices(
 ) (model.UserDomainInterface, *rest_err.RestErr) {
 	logger.Info("Init loginUser model",
 		zap.String("journey", "loginUser"))
-	
+
 	userDomain.EncryptPassword()
 	//Valida se o email já está cadastrado
 	user, err := ud.FindUserByEmailAndPasswordServices(
@@ -21,11 +21,11 @@ func (ud *userDomainService) LoginUserServices(
 		userDomain.GetPassword(),
 	)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 	logger.Info(
-		"CreateUser service executed successfully",
+		"loginUser service executed successfully",
 		zap.String("userId", user.GetID()),
 		zap.String("journey", "loginUser"))
-	return userDomainRepository, nil
+	return user, nil
 }

@@ -127,7 +127,7 @@ func (ur *userRepository) FindUserByEmailAndPassword(
 
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			errorMessage := "User or password is invalid"
+			errorMessage := "User not found with this email and password"
 			logger.Error(errorMessage,
 				err,
 				zap.String("journey", "findUserByEmail"))
