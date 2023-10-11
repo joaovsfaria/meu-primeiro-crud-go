@@ -16,6 +16,7 @@ func (uc *userControllerInterface) LoginUser(c *gin.Context) {
 	logger.Info("Init loginUser Controller",
 		zap.String("journey", "loginUser"),
 	)
+
 	var userRequest request.UserLogin
 
 	if err := c.ShouldBindJSON(&userRequest); err != nil {

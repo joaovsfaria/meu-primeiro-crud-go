@@ -1,71 +1,79 @@
 package rest_err
 
-import(
+import (
 	"net/http"
 )
 
 type RestErr struct {
-	Message string `json:"message"`
-	Err string `json:"error"`
-	Code int `json:"code"`
-	Causes []Causes `json:"causes,omitempty"`
+	Message string   `json:"message"`
+	Err     string   `json:"error"`
+	Code    int      `json:"code"`
+	Causes  []Causes `json:"causes,omitempty"`
 }
 
 type Causes struct {
-	Field string `json:"field"`
+	Field   string `json:"field"`
 	Message string `json:"message"`
 }
 
-func (r *RestErr) Error() string{
+func (r *RestErr) Error() string {
 	return r.Message
 }
 
-func NewRestErr(message, err string, code int, causes []Causes) *RestErr{
+func NewRestErr(message, err string, code int, causes []Causes) *RestErr {
 	return &RestErr{
 		Message: message,
-		Err: err,
-		Code: code,
-		Causes: causes,
+		Err:     err,
+		Code:    code,
+		Causes:  causes,
 	}
 }
 
-func NewBadRequestError(message string) *RestErr{
+func NewBadRequestError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
-		Err: "bad_request",
-		Code: http.StatusBadRequest,
+		Err:     "bad_request",
+		Code:    http.StatusBadRequest,
 	}
 }
 
-func NewBadRequestValidationError(message string, causes []Causes) *RestErr{
+func NewUnauthorizedRequestError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
-		Err: "bad_request",
-		Code: http.StatusBadRequest,
-		Causes: causes,
+		Err:     "unauthorized",
+		Code:    http.StatusUnauthorized,
+	}
+}
+
+func NewBadRequestValidationError(message string, causes []Causes) *RestErr {
+	return &RestErr{
+		Message: message,
+		Err:     "bad_request",
+		Code:    http.StatusBadRequest,
+		Causes:  causes,
 	}
 }
 
 func NewInternalServerError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
-		Err: "internal_server_error",
-		Code: http.StatusInternalServerError,
+		Err:     "internal_server_error",
+		Code:    http.StatusInternalServerError,
 	}
 }
 
-func NewNotFoundError(message string) *RestErr{
+func NewNotFoundError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
-		Err: "not_found",
-		Code: http.StatusNotFound,
+		Err:     "not_found",
+		Code:    http.StatusNotFound,
 	}
 }
 
-func NewForbiddenError(message string) *RestErr{
+func NewForbiddenError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
-		Err: "forbidden",
-		Code: http.StatusForbidden,
+		Err:     "forbidden",
+		Code:    http.StatusForbidden,
 	}
 }
